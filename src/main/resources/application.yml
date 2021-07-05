@@ -1,0 +1,31 @@
+server:
+  port: 9991
+
+spring:
+  application:
+    name: demo
+  main:
+    web-application-type: reactive
+  zipkin:
+    sender:
+      type: kafka
+  config:
+    import: vault://
+  sleuth:
+    sampler:
+      probability: 1.0
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    vault:
+      uri: https://demo_vault_address
+      authentication: APPROLE
+      app-role:
+        role-id: _vault_role_id
+        secret-id: _vault_secret_id
+      kv:
+        backend: _backend
+        default-context: _default_context
+      config:
+        lifecycle:
+          enabled: false
